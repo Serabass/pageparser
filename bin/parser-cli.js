@@ -5,7 +5,6 @@ var fs = require('fs');
 var cwd = process.cwd();
 var path = require('path');
 var extendedConfigPath = path.join(cwd, '.parserconfig.js');
-var noop = function (arg) { return arg; };
 
 
 var parser = new Parser({
@@ -18,7 +17,8 @@ if (fs.existsSync(extendedConfigPath)) {
 }
 
 parser.load().then(function ($) {
-  return parser.getProcessor(processing)($(selector));
+  let proc = parser.getProcessor(processing);
+  return proc.processor($(selector), ...proc.args);
 })
   .then(function (data) {
     console.log(data);

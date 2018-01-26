@@ -5,7 +5,7 @@ var Parser = require('./lib/index');
     url: 'https://www.kinopoisk.ru/'
   });
 
-  var $ = await parse('https://www.kinopoisk.ru/');
+  var $ = await parser.load('https://www.kinopoisk.ru/');
   var s = $('#top_menu').html();
   debugger;
 })();
