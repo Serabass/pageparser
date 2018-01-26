@@ -10,19 +10,18 @@ var cwd = process.cwd();
 var path = require('path');
 var extendedConfigPath = path.join(cwd, '.parserconfig.js');
 
-
-var parser = new Parser({
-  url: url
-});
-if (fs.existsSync(extendedConfigPath)) {
-  var config = require(extendedConfigPath);
-  parser.extend(config);
-}
-
-parser.load().then(function ($) {
-  let proc = parser.getProcessor(processing);
-  return proc.processor.call($(selector), ...proc.args);
-})
-  .then(function (data) {
-    console.log(data);
+(async () => {
+  var parser = new Parser({
+    url: url
   });
+
+  if (fs.existsSync(extendedConfigPath)) {
+    var config = require(extendedConfigPath);
+    parser.extend(config);
+  }
+
+  var $ = await parser.load();
+  let proc = parser.getProcessor(processing);
+  let data = await Promise.resolve(proc.processor.call($(selector), ...proc.args));
+  console.log(data);
+})();

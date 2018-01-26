@@ -1,5 +1,6 @@
 module.exports = {
   processors: {
+    // May return Promise
     kp() {
       return this
         .toArray()
