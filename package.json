@@ -1,17 +1,20 @@
 {
   "name": "pageparser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A small cli web page parser",
   "main": "lib/index.js",
-  "preferGlobal": true,
   "bin": {
     "pageparser": "bin/cli.js"
   },
   "scripts": {
     "test": "mocha --ui tdd ./tests"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/Serabass/pageparser"
+  },
   "author": "Serabass",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "deep-extend": "^0.5.0",
@@ -20,6 +23,16 @@
     "request-promise": "^4.2.2",
     "stream-to-promise": "^2.2.0"
   },
+  "keywords": [
+    "html",
+    "parse",
+    "selector",
+    "jquery"
+  ],
+  "bugs": {
+    "url": "https://github.com/Serabass/pageparser/issues"
+  },
+  "homepage": "https://github.com/Serabass/pageparser",
   "devDependencies": {
     "mocha": "^5.0.0"
   }
