@@ -10,8 +10,6 @@ if (argv._.length === 3) {
     if (!process.stdin.isTTY)
         throw new Error('Three arguments may only passed in tty mode (non pipe)');
 
-    source = process.stdin;
-
     [source, selector, processing] = argv._;
 } else if (argv._.length === 2) {
 
