@@ -32,5 +32,23 @@ describe('Parser', () => {
             assert.equal($deepElement.length, 1);
             assert.equal($deepElement.html(), ':)');
         });
+
+        it('Custom selector', async () => {
+            var parser = new Parser(path.join(__dirname, 'testpage.html'));
+            assert.notEqual(parser, void 0);
+            assert.equal(typeof parser.load, 'function');
+            var $ = await parser.load();
+            assert.equal(typeof $, 'function');
+            let $h1 = $('h1');
+            assert.equal($h1.length, 1);
+            assert.equal($h1.html(), 'Example page');
+            let $deepElement = $('.we > .need > .to > .go > .deeper:hasSmile');
+            assert.equal($deepElement.length, 1);
+            assert.equal($deepElement.html(), ':)');
+        });
+
+        it('XML (under construction)', async () => {
+            // ...
+        });
     });
 });

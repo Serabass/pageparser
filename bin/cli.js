@@ -37,7 +37,9 @@ if (argv._.length === 3) {
 
 var Parser = require('../lib/index');
 (async () => {
-    let result = await Parser.process(source, selector, processing);
+    let result = await Parser.process(source, selector, processing, {
+        xmlMode: !!argv._.xml
+    });
     console.log(result);
 })();
 
