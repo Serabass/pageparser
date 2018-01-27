@@ -1,5 +1,5 @@
 
-` $ pageparser http://example.com/ "h1" :content `
+` $ pageparser http://example.com/ "h1" :html `
 
 ` $ cat tests\testpage.html | pageparser "h1" :html `
 
