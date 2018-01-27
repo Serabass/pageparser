@@ -33,7 +33,7 @@ describe('Parser', () => {
             assert.equal($deepElement.html(), ':)');
         });
 
-        it('Custom selector', async () => {
+        xit('Custom selector (under construction)', async () => {
             var parser = new Parser(path.join(__dirname, 'testpage.html'));
             assert.notEqual(parser, void 0);
             assert.equal(typeof parser.load, 'function');
@@ -47,7 +47,7 @@ describe('Parser', () => {
             assert.equal($deepElement.html(), ':)');
         });
 
-        it('XML (under construction)', async () => {
+        xit('XML (under construction)', async () => {
             // ...
         });
     });
