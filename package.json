@@ -1,6 +1,6 @@
 {
   "name": "pageparser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small cli web page parser",
   "main": "lib/index.js",
   "preferGlobal": true,
