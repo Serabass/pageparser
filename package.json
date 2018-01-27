@@ -1,15 +1,14 @@
 {
   "name": "pageparser",
   "version": "1.0.0",
-  "description": "",
+  "description": "A small cli web page parser",
   "main": "lib/index.js",
   "preferGlobal": true,
   "bin": {
-    "pageparser": "./bin/cli.js"
+    "pageparser": "bin/cli.js"
   },
   "scripts": {
-    "test": "mocha --ui tdd ./tests",
-    "prepublish": "test"
+    "test": "mocha --ui tdd ./tests"
   },
   "author": "Serabass",
   "license": "ISC",
