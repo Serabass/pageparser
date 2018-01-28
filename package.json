@@ -1,10 +1,10 @@
 {
   "name": "pageparser",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A small cli web page parser",
   "main": "lib/index.js",
   "bin": {
-    "pageparser": "bin/cli.js"
+    "pageparser": "bin/cli"
   },
   "scripts": {
     "test": "mocha --ui tdd ./tests"
