@@ -20,6 +20,15 @@ or
     })();
 ```
 
+or
+
+```js
+    (async function () {
+        var data = await Parser.process('http://example.com', 'h1', ':html');
+        console.log(data); // Example Domain
+    })();
+```
+
 # Cheerio Docs
 You can get additional info about `cheerio` here: https://github.com/cheeriojs/cheerio   
 
