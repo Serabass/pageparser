@@ -1,7 +1,8 @@
 var assert = require('assert'),
     Parser = require('../lib/index'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    iconv = require('iconv-lite');
 
 describe('Parser', function () {
     this.timeout(10000);
@@ -51,6 +52,18 @@ describe('Parser', function () {
             let $deepElement = $('.we > .need > .to > .go > .deeper');
             assert.equal($deepElement.length, 1);
             assert.equal($deepElement.html(), ':)');
+        });
+
+        it('URL test with transform', async () => {
+            var parser = new Parser('http://example.com/');
+            parser.transform(data => iconv.decode(data, 'win1251'));
+
+            assert.notEqual(parser, void 0);
+            assert.equal(typeof parser.load, 'function');
+            var $ = await parser.load();
+            assert.equal(typeof $, 'function');
+            assert.equal($('h1').html(), 'Example Domain');
+            assert.equal($('p a').attr('href'), 'http://www.iana.org/domains/example');
         });
 
         xit('Custom selector (under construction)', async () => {

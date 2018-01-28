@@ -30,7 +30,8 @@ or
 ```
 
 # Cheerio Docs
-You can get additional info about `cheerio` here: https://github.com/cheeriojs/cheerio   
+Pageparser using `cheerio`.
+You can get additional info about it [here](https://github.com/cheeriojs/cheerio)
 
 # Writing custom processors
 
