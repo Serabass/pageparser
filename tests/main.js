@@ -80,6 +80,11 @@ describe('Parser', function () {
             assert.equal(tagName, 'H1');
         });
 
+        it('Call process static method (val processor)', async function () {
+            let value = await Parser.process('http://bsime.net/', 'input[type=submit]', ':val');
+            assert.equal(value, 'Send Message');
+        });
+
         it('Call process static with unknown processor', async function () {
             let actual = await Parser.process('http://example.com/', 'h1', ':iAmNotExist');
             assert.equal(typeof actual, 'object');
