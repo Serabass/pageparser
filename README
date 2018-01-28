@@ -11,13 +11,17 @@ or
 # Script example
 
 ```js
-    var Parser = require('pageparser');
-    var parser = new Parser(streamOrString); // String value may be a URL or File path (absolute or relative)
-    
-    var $ = parser.load(); // Do you love JQuery? <3
-    var element = $(selector);
-    console.log(element.html());
+    (async function () {
+        var Parser = require('pageparser');
+        var parser = new Parser('http://example.com'); // argument may be a ReadStream or String (URL or File Path)
+        var $ = await parser.load(); // Do you love JQuery? <3
+        var element = $('h1');
+        console.log(element.html()); // Example Domain
+    })();
 ```
+
+# Cheerio Docs
+You can get additional info about `cheerio` here: https://github.com/cheeriojs/cheerio   
 
 # Writing custom processors
 
