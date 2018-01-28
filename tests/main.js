@@ -85,6 +85,11 @@ describe('Parser', function () {
             assert.equal(value, 'Send Message');
         });
 
+        it('Call process static method (text processor)', async function () {
+            let text = await Parser.process('http://bsime.net/', '#bsime .wrapper .blurb h2', ':text');
+            assert.equal(text, 'Black Skies In My Eyes');
+        });
+
         it('Call process static with unknown processor', async function () {
             let actual = await Parser.process('http://example.com/', 'h1', ':iAmNotExist');
             assert.equal(typeof actual, 'object');

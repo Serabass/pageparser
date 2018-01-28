@@ -1,6 +1,6 @@
 
-` $ pageparser http://example.com/ "h1" :html `
+Pageparser is a small CLI tool for easy access to HTML/XML elements on local/remote pages
 
-` $ cat tests\testpage.html | pageparser "h1" :html `
-
-` $ pageparser "h1" :html < tests\testpage.html `
+`$ pageparser http://example.com/ "h1" :html`
+`$ cat tests\testpage.html | pageparser "h1" :html`
+`$ pageparser "h1" :html < tests\testpage.html`
