@@ -8,12 +8,37 @@ or
 
 `$ npm install -g pageparser`
 
+# Script example
+
+```js
+    var Parser = require('pageparser');
+    var parser = new Parser(streamOrString); // String value may be a URL or File path (absolute or relative)
+    
+    var $ = parser.load(); // Do you love JQuery? <3
+    var element = $(selector);
+    console.log(element.html());
+```
+
+# Writing custom processors
+
+1. Call this from needed directory
+`$ pageparser --init-config`
+to  place `.parserconfig.js` file to it
+
+2. Write your own processor function in `processors` section
+
 # Running from command line
 `$ pageparser http://example.com/ "h1" :html`
+> Example Domain
+
 
 `$ cat tests\testpage.html | pageparser "h1" :html`
+> Example Page
+
 
 `$ pageparser "h1" :html < tests\testpage.html`
+> Example Page
+
 
 # Running tests
 `$ npm test`
