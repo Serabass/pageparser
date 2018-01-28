@@ -1,9 +1,18 @@
 
 Pageparser is a small CLI tool for easy access to HTML/XML elements on local/remote pages
 
+# Installation
+`$ npm install pageparser`
+
+or
+
+`$ npm install -g pageparser`
+
 # Running from command line
 `$ pageparser http://example.com/ "h1" :html`
+
 `$ cat tests\testpage.html | pageparser "h1" :html`
+
 `$ pageparser "h1" :html < tests\testpage.html`
 
 # Running tests
