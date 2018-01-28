@@ -3,10 +3,8 @@ module.exports = {
     customSelectors: {},
     processors: {
         // May return Promise
-        kp() {
-            return this
-                .toArray()
-                .map(el => el.children.map(x => x.data).join(''));
+        textOfSubElement(element) {
+            return element.find('p a').text();
         }
     }
 };

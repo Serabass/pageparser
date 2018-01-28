@@ -37,5 +37,10 @@ describe('Parser', function () {
             let actual = await Parser.process('http://example.com/', 'h1', ':iAmNotExist');
             assert.equal(typeof actual, 'object');
         });
+
+        it('Call process static with custom processor', async function () {
+            let actual = await Parser.process('http://example.com/', 'body div', ':textOfSubElement');
+            assert.equal(actual, 'More information...');
+        });
     });
 });
