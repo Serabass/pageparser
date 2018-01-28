@@ -4,7 +4,7 @@ var assert = require('assert'),
     fs = require('fs');
 
 describe('Parser', function () {
-    this.timeout(5000);
+    this.timeout(10000);
     describe('#load', () => {
         it('all the constants should equal', () => {
             assert.equal(Parser.URL, 'URL');
@@ -59,40 +59,6 @@ describe('Parser', function () {
 
         xit('XML (under construction)', async () => {
             // ...
-        });
-    });
-
-    describe('#process', () => {
-        it('Call process static method', async function () {
-            let actual = await Parser.process('http://example.com/', 'h1', ':html');
-            assert.equal(actual, 'Example Domain');
-            let count = await Parser.process('http://example.com/', 'h1', ':count');
-            assert.equal(count, 1);
-        });
-
-        it('Call process static method (attr processor)', async function () {
-            let href = await Parser.process('http://example.com/', 'p a', ':attr:href');
-            assert.equal(href, 'http://www.iana.org/domains/example');
-        });
-
-        it('Call process static method (prop processor)', async function () {
-            let tagName = await Parser.process('http://example.com/', 'h1', ':prop:tagName');
-            assert.equal(tagName, 'H1');
-        });
-
-        it('Call process static method (val processor)', async function () {
-            let value = await Parser.process('http://bsime.net/', 'input[type=submit]', ':val');
-            assert.equal(value, 'Send Message');
-        });
-
-        it('Call process static method (text processor)', async function () {
-            let text = await Parser.process('http://bsime.net/', '#bsime .wrapper .blurb h2', ':text');
-            assert.equal(text, 'Black Skies In My Eyes');
-        });
-
-        it('Call process static with unknown processor', async function () {
-            let actual = await Parser.process('http://example.com/', 'h1', ':iAmNotExist');
-            assert.equal(typeof actual, 'object');
         });
     });
 });
