@@ -37,7 +37,7 @@ if (argv._.length === 3) {
     throw new Error(`Wrong arguments count: ${argv._.length}`);
 }
 
-var Parser = require('../lib/index');
+var Parser = require('../dist/lib/parser');
 (async () => {
     let result = await Parser.process(source, selector, processing, {
         xmlMode: !!argv._.xml
