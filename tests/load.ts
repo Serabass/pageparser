@@ -13,7 +13,7 @@ describe("Parser", function() {
             assert.equal(Parser.FILE, "FILE");
         });
 
-        it("URL Parser simple test", async (): Promise<any> => {
+        it("URL Parser simple test", async () => {
             const parser = new Parser("http://example.com/");
             assert.notEqual(parser, void 0);
             assert.equal(typeof parser.load, "function");
