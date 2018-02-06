@@ -1,8 +1,8 @@
-var assert = require('assert'),
-    Parser = require('../lib/index'),
-    path = require('path'),
-    fs = require('fs'),
-    iconv = require('iconv-lite');
+import * as assert from 'assert';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as iconv from 'iconv-lite';
+import Parser from '../lib/parser';
 
 describe('Parser', function () {
     this.timeout(10000);
