@@ -2,7 +2,7 @@ import * as assert from "assert";
 import * as fs from "fs";
 import * as path from "path";
 import * as iconv from "iconv-lite";
-import Parser from "../lib/parser";
+import Parser from "../index";
 
 describe("Parser", function() {
     this.timeout(10000);
@@ -56,7 +56,7 @@ describe("Parser", function() {
 
         it("URL test with transform", async () => {
             const parser = new Parser("http://example.com/");
-            parser.transform((data) => iconv.decode(data, "win1251"));
+            parser.transform((data: any) => iconv.decode(data, "win1251"));
 
             assert.notEqual(parser, void 0);
             assert.equal(typeof parser.load, "function");
@@ -67,7 +67,7 @@ describe("Parser", function() {
         });
 
         xit("Custom selector", async () => {
-
+            // ...
         });
 
         xit("XML", async () => {

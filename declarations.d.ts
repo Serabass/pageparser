@@ -1,1 +1,3 @@
-declare module "stream-to-promise";
+declare module "stream-to-promise" {
+
+}

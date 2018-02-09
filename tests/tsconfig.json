@@ -4,15 +4,12 @@
     "target": "es5",
     "declaration": true,
     "sourceMap": true,
-    "outDir": "./dist",
     "noImplicitAny": true,
     "lib": [
       "es2015"
     ]
   },
-  "exclude": [
-    "node_modules",
-    "./dist",
-    "./dist/lib"
+  "include": [
+    "./**/*.ts"
   ]
 }

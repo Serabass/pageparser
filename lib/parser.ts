@@ -4,10 +4,11 @@ import * as fs from "fs"; // TODO Use fs-promise
 import * as path from "path";
 import * as request from "request";
 import * as stream from "stream";
-import * as streamToPromise from "stream-to-promise";
 import {config} from "./config-default";
 import {IParserExtraOptions, ParserFunction, ReadableSource} from "../globals";
 import {IParserConfig} from "../globals";
+
+const streamToPromise = require("stream-to-promise");
 
 export default class Parser {
 
@@ -107,5 +108,4 @@ export default class Parser {
             args: [],
         };
     }
-
 }
