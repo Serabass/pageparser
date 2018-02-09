@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "gulp",
+    "postinstall": "npm run build",
     "prepublish": "npm run build",
     "pretest": "tsc -p tests",
     "test": "mocha --ui tdd ./tests"
