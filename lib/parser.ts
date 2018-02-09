@@ -7,7 +7,6 @@ import * as stream from "stream";
 import {config} from "./config-default";
 import {IParserExtraOptions, ParserFunction, ReadableSource} from "../globals";
 import {IParserConfig} from "../globals";
-
 const streamToPromise = require("stream-to-promise");
 
 export class Parser {
