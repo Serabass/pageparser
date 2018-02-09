@@ -10,23 +10,40 @@ or
 
 # Script example
 
+## Import Parser
+
+### Javascript:
 ```js
-(async function () {
-    var Parser = require('pageparser').Parser;
+var Parser = require('pageparser').Parser;
+```
+
+### Typescript:
+```typescript
+import {Parser} from "pageparser"
+```
+
+
+### Javascript:
+```js
     var parser = new Parser('http://example.com'); // argument may be a ReadStream or String (URL or File Path)
     var $ = await parser.load(); // Do you love JQuery? <3
     var element = $('h1');
     console.log(element.html()); // Example Domain
-})();
+```
+
+### Typescript:
+```typescript
+    var parser = new Parser('http://example.com'); // argument may be a ReadStream or String (URL or File Path)
+    var $ = await parser.load(); // Do you love JQuery? <3
+    var element = $('h1');
+    console.log(element.html()); // Example Domain
 ```
 
 or
 
 ```js
-(async function () {
     var data = await Parser.process('http://example.com', 'h1', ':html');
     console.log(data); // Example Domain
-})();
 ```
 
 # Cheerio Docs
