@@ -59,8 +59,8 @@ typings/
 # dotenv environment variables file
 .env
 
-.idea
 !.idea/runConfigurations
+.idea
 
 dist
 tests/**/*.js
