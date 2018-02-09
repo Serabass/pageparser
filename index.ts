@@ -1,2 +1,1 @@
-import Parser from "./lib/parser";
-export default Parser;
+export * from "./lib/parser";

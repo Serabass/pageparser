@@ -2,7 +2,7 @@ import * as assert from "assert";
 import * as fs from "fs";
 import * as path from "path";
 import * as iconv from "iconv-lite";
-import Parser from "../index";
+import {Parser} from "../index";
 
 describe("#load", function() {
     this.timeout(10000);

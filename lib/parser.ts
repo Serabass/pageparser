@@ -10,7 +10,7 @@ import {IParserConfig} from "../globals";
 
 const streamToPromise = require("stream-to-promise");
 
-export default class Parser {
+export class Parser {
 
     public static URL = "URL";
     public static PIPED = "PIPED";
