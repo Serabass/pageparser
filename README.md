@@ -22,7 +22,6 @@ var Parser = require('pageparser').Parser;
 import {Parser} from "pageparser"
 ```
 
-### Javascript:
 ```js
     var parser = new Parser('http://example.com'); // argument may be a ReadStream or String (URL or File Path)
     var $ = await parser.load(); // Do you love JQuery? <3
