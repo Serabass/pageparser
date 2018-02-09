@@ -8,7 +8,7 @@ gulp.task('compile', function () {
     var tsResult = tsProject.src()
         .pipe(tsProject());
 
-    return tsResult.js.pipe(gulp.dest('release'));
+    return tsResult.js.pipe(gulp.dest('dist'));
 });
 
 gulp.task('copy', function () {
