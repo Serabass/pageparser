@@ -7,6 +7,7 @@ import * as stream from "stream";
 import {config} from "./config-default";
 import {IParserExtraOptions, ParserFunction, ReadableSource} from "../globals";
 import {IParserConfig} from "../globals";
+
 const streamToPromise = require("stream-to-promise");
 
 export class Parser {
@@ -14,6 +15,8 @@ export class Parser {
     public static URL = "URL";
     public static PIPED = "PIPED";
     public static FILE = "FILE";
+
+    public contents: Buffer;
 
     public static async process(source: ReadableSource, selector: string, processing: string, extraOptions: any = {}) {
         const parser = new Parser(source, extraOptions);
@@ -70,6 +73,8 @@ export class Parser {
         for (const transform of this.transforms) {
             data = await Promise.resolve(transform(data));
         }
+
+        this.contents = data;
 
         return cheerio.load(data, {
             xmlMode: this.extraOptions.xmlMode,
