@@ -16,7 +16,9 @@ describe("#load", function() {
         const parser = new Parser("http://example.com/");
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
+        assert.equal(parser.contents, void 0);
         const $ = await parser.load();
+        assert.notEqual(parser.contents, void 0);
         assert.equal(typeof $, "function");
         assert.equal($("h1").html(), "Example Domain");
         assert.equal($("p a").attr("href"), "http://www.iana.org/domains/example");
