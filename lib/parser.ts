@@ -64,7 +64,7 @@ export class Parser {
         return this;
     }
 
-    public async load() {
+    public async load(): (...args) => any {
         const readableStream = this.read();
         let data = await streamToPromise(readableStream);
 
@@ -74,21 +74,20 @@ export class Parser {
 
         this.contents = data;
 
-        const x = () => {
-            const $ = cheerio.load(data, {
-                xmlMode: this.extraOptions.xmlMode,
-            });
+        const $ = cheerio.load(data, {
+            xmlMode: this.extraOptions.xmlMode,
+        });
 
+        const x = () => {
             return (selector, ...args) => {
                 let selectorSplitted = selector.split(/\s*\|\s*/);
                 let firstElement = selectorSplitted.shift();
                 let result = $(firstElement, ...args);
 
                 for (let chunk of selectorSplitted) {
-                    if (chunk.startsWith("@")) {
+                    if (chunk.startsWith("%")) {
                         let [fnName, ...fnArgs] = chunk.substring(1).split(/\s*:\s*/);
-                        let config2 = this.config;
-                        let custom = config2.customSelectors;
+                        let custom = this.config.customSelectors;
 
                         fnArgs = fnArgs.map((arg) => {
                             if (/^\d+(?:\.\d+)?$/.test(arg)) {
@@ -108,7 +107,20 @@ export class Parser {
             };
         };
 
-        return x();
+        let jQuery = x();
+
+        jQuery.fn = jQuery.prototype = $.prototype;
+        deepExtend(jQuery.prototype, this.config.plugins);
+
+        for (let key in $) {
+            if (!$.hasOwnProperty(key)) {
+                continue;
+            }
+
+            jQuery[key] = $[key];
+        }
+
+        return jQuery;
     }
 
     public extendFromFileIfExists() {

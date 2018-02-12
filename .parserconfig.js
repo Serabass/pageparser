@@ -1,5 +1,12 @@
 module.exports = {
-  plugins: {},
+  plugins: {
+    test() {
+      return 'test plugin';
+    },
+    htmlReversed() {
+      return this.html().split('').reverse().join('');
+    }
+  },
   customSelectors: {
     has2Children(query) {
       return query.filter(function() {

@@ -29,10 +29,10 @@ describe("#load", function() {
     it("File Parser simple test", async () => {
         const filePath = path.join(__dirname, "testpage.html");
         const parser = new Parser(filePath);
-        assert.equal(parser.type, ParserType.FILE);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
+        assert.equal(parser.type, ParserType.FILE);
         assert.equal(typeof $, "function");
         const $h1 = $("h1");
         assert.equal($h1.length, 1);
@@ -46,10 +46,10 @@ describe("#load", function() {
         const filePath = path.join(__dirname, "testpage.html");
         const stream = fs.createReadStream(filePath);
         const parser = new Parser(stream);
-        assert.equal(parser.type, ParserType.STREAM);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
+        assert.equal(parser.type, ParserType.STREAM);
         assert.equal(typeof $, "function");
         const $h1 = $("h1");
         assert.equal($h1.length, 1);
@@ -92,12 +92,27 @@ describe("#load", function() {
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
         assert.equal(typeof $, "function");
-        const $ul = $("ul.has-li | @has2Children");
+        const $ul = $("ul.has-li | %has2Children");
         assert.equal($ul.length, 1);
         assert.equal($ul.children().length, 2);
-        const $ul2 = $("ul.has-li | @hasNChildren : 2");
+        const $ul2 = $("ul.has-li | %hasNChildren : 2");
         assert.equal($ul2.length, 1);
         assert.equal($ul2.children().length, 2);
+    });
+
+    it("Test plugin", async () => {
+        const filePath = path.join(__dirname, "testpage.html");
+        const stream = fs.createReadStream(filePath);
+        const parser = new Parser(stream);
+        assert.notEqual(parser, void 0);
+        assert.equal(typeof parser.load, "function");
+        const $ = await parser.load();
+        assert.equal(typeof $, "function");
+        const $deepElement = $(".we > .need > .to > .go > .deeper");
+        assert.equal(typeof $deepElement.test, "function");
+        assert.equal(typeof $.fn.test, "function");
+        assert.equal($deepElement.test(), "test plugin");
+        assert.equal($deepElement.htmlReversed(), $deepElement.html().split("").reverse().join(""));
     });
 
     xit("Custom selector", async () => {
