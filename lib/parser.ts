@@ -4,11 +4,10 @@ import * as fs from "fs"; // TODO Use fs-promise
 import * as path from "path";
 import * as request from "request";
 import * as stream from "stream";
+import * as streamToPromise from "stream-to-promise";
 import {config} from "./config-default";
 import {IParserExtraOptions, ParserFunction, ReadableSource} from "../globals";
 import {IParserConfig} from "../globals";
-
-const streamToPromise = require("stream-to-promise");
 
 export enum ParserType {
     URL = "URL",
@@ -64,9 +63,9 @@ export class Parser {
         return this;
     }
 
-    public async load(): (...args) => any {
+    public async load(): any {
         const readableStream = this.read();
-        let data = await streamToPromise(readableStream);
+        let data: any = await streamToPromise(readableStream);
 
         for (const transform of this.transforms) {
             data = await Promise.resolve(transform(data));
@@ -79,7 +78,7 @@ export class Parser {
         });
 
         const x = () => {
-            return (selector, ...args) => {
+            return (selector: any, ...args: any[]) => {
                 let selectorSplitted = selector.split(/\s*\|\s*/);
                 let firstElement = selectorSplitted.shift();
                 let result = $(firstElement, ...args);

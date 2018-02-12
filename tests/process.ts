@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import {Parser} from "../index";
+import {Parser} from "../lib/parser";
 
 describe("#process", function() {
     this.timeout(10000);
