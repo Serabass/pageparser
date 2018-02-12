@@ -2,8 +2,8 @@
   "name": "pageparser",
   "version": "1.2.2",
   "description": "A small cli web page parser",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/parser.js",
+  "types": "dist/parser.d.ts",
   "bin": {
     "pageparser": "bin/cli"
   },

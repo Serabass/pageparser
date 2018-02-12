@@ -1,11 +1,22 @@
 import * as assert from "assert";
-import * as fs from "fs";
 import * as path from "path";
 import * as iconv from "iconv-lite";
 import {Parser} from "../lib/parser";
 import {ParserType} from "../lib/parser";
+import {ReadStream} from "fs";
+import * as fs from "fs";
 
 describe("#load", function() {
+    let filePath: string;
+    let parser: Parser;
+    let stream: ReadStream;
+
+    beforeEach(async () => {
+        filePath = path.join(__dirname, "testpage.html");
+        stream = fs.createReadStream(filePath);
+        parser = new Parser(filePath);
+    });
+
     this.timeout(10000);
     it("all the constants should equal", () => {
         assert.equal(ParserType.URL, "URL");
@@ -14,7 +25,7 @@ describe("#load", function() {
     });
 
     it("URL Parser simple test", async () => {
-        const parser = new Parser("http://example.com/");
+        parser = new Parser("http://example.com/");
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         assert.equal(parser.contents, void 0);
@@ -27,8 +38,6 @@ describe("#load", function() {
     });
 
     it("File Parser simple test", async () => {
-        const filePath = path.join(__dirname, "testpage.html");
-        const parser = new Parser(filePath);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
@@ -43,9 +52,8 @@ describe("#load", function() {
     });
 
     it("ReadStream Parser simple test", async () => {
-        const filePath = path.join(__dirname, "testpage.html");
-        const stream = fs.createReadStream(filePath);
-        const parser = new Parser(stream);
+        filePath = path.join(__dirname, "testpage.html");
+        parser = new Parser(stream);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
@@ -60,7 +68,7 @@ describe("#load", function() {
     });
 
     it("URL test with transform", async () => {
-        const parser = new Parser("http://example.com/");
+        parser = new Parser("http://example.com/");
         parser.transform((data: any) => iconv.decode(data, "win1251"));
 
         assert.notEqual(parser, void 0);

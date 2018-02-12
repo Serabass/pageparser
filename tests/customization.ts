@@ -2,13 +2,20 @@ import * as assert from "assert";
 import * as fs from "fs";
 import * as path from "path";
 import {Parser} from "../lib/parser";
+import {ReadStream} from "fs";
 
 describe("#customization", function() {
+    let filePath: string;
+    let stream: ReadStream;
+    let parser: Parser;
+    beforeEach(async () => {
+        filePath = path.join(__dirname, "testpage.html");
+        stream = fs.createReadStream(filePath);
+        parser = new Parser(stream);
+    });
+
     this.timeout(10000);
     it("Selector piping", async () => {
-        const filePath = path.join(__dirname, "testpage.html");
-        const stream = fs.createReadStream(filePath);
-        const parser = new Parser(stream);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
@@ -19,9 +26,6 @@ describe("#customization", function() {
     });
 
     it("Selector piping with custom function", async () => {
-        const filePath = path.join(__dirname, "testpage.html");
-        const stream = fs.createReadStream(filePath);
-        const parser = new Parser(stream);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
@@ -35,9 +39,6 @@ describe("#customization", function() {
     });
 
     it("Selector piping with custom function with string argument", async () => {
-        const filePath = path.join(__dirname, "testpage.html");
-        const stream = fs.createReadStream(filePath);
-        const parser = new Parser(stream);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
@@ -49,9 +50,6 @@ describe("#customization", function() {
     });
 
     it("Test plugin", async () => {
-        const filePath = path.join(__dirname, "testpage.html");
-        const stream = fs.createReadStream(filePath);
-        const parser = new Parser(stream);
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
         const $ = await parser.load();
