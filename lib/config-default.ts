@@ -1,4 +1,4 @@
-export let config = {
+let config = {
     plugins: {},
     customSelectors: {},
     processors: {
@@ -10,3 +10,4 @@ export let config = {
         val: (element: any) => element.first().val(),
     },
 };
+export default config;

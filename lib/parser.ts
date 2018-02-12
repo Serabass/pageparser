@@ -5,9 +5,10 @@ import * as path from "path";
 import * as request from "request";
 import * as stream from "stream";
 import * as streamToPromise from "stream-to-promise";
-import {config} from "./config-default";
-import {IParserExtraOptions, ParserFunction, ReadableSource} from "../globals";
-import {IParserConfig} from "../globals";
+import config from "./config-default";
+import {ParserFunction, ReadableSource} from "./types";
+import {IParserExtraOptions} from "./interfaces/IParserExtraOptions";
+import {IParserConfig} from "./interfaces/IParserConfig";
 
 export enum ParserType {
     URL = "URL",
