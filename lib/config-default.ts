@@ -1,4 +1,6 @@
-let config = {
+import {IParserConfig} from "./interfaces/IParserConfig";
+
+let config: IParserConfig = {
     plugins: {},
     customSelectors: {},
     processors: {

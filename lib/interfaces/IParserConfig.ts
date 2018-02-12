@@ -1,7 +1,8 @@
 import {IParserProcessors} from "./IParserProcessors";
+import {IParserPlugins} from "./IParserPlugins";
 
 export interface IParserConfig {
     processors: IParserProcessors;
-    plugins: any;
+    plugins: IParserPlugins;
     customSelectors: any;
 }
