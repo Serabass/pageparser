@@ -8,13 +8,15 @@ describe("#customization", function() {
     let filePath: string;
     let stream: ReadStream;
     let parser: Parser;
+
+    this.timeout(10000);
+
     beforeEach(async () => {
         filePath = path.join(__dirname, "testpage.html");
         stream = fs.createReadStream(filePath);
         parser = new Parser(stream);
     });
 
-    this.timeout(10000);
     it("Selector piping", async () => {
         assert.notEqual(parser, void 0);
         assert.equal(typeof parser.load, "function");
