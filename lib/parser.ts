@@ -63,9 +63,9 @@ export class Parser {
         return this;
     }
 
-    public async load(): any {
+    public async load(): Promise<any> {
         const readableStream = this.read();
-        let data: any = await streamToPromise(readableStream);
+        let data: any = await (streamToPromise as any)(readableStream);
 
         for (const transform of this.transforms) {
             data = await Promise.resolve(transform(data));
@@ -81,14 +81,14 @@ export class Parser {
             return (selector: any, ...args: any[]) => {
                 let selectorSplitted = selector.split(/\s*\|\s*/);
                 let firstElement = selectorSplitted.shift();
-                let result = $(firstElement, ...args);
+                let result = ($ as any)(firstElement, ...args);
 
                 for (let chunk of selectorSplitted) {
                     if (chunk.startsWith("%")) {
                         let [fnName, ...fnArgs] = chunk.substring(1).split(/\s*:\s*/);
                         let custom = this.config.customSelectors;
 
-                        fnArgs = fnArgs.map((arg) => {
+                        fnArgs = fnArgs.map((arg: any) => {
                             if (/^\d+(?:\.\d+)?$/.test(arg)) {
                                 return parseFloat(arg);
                             }
@@ -108,7 +108,7 @@ export class Parser {
 
         let jQuery = x();
 
-        jQuery.fn = jQuery.prototype = $.prototype;
+        (jQuery as any).fn = jQuery.prototype = $.prototype;
         deepExtend(jQuery.prototype, this.config.plugins);
 
         for (let key in $) {
@@ -116,7 +116,7 @@ export class Parser {
                 continue;
             }
 
-            jQuery[key] = $[key];
+            (jQuery as any)[key] = ($ as any)[key];
         }
 
         return jQuery;
