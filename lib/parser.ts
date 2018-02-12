@@ -10,29 +10,23 @@ import {IParserConfig} from "../globals";
 
 const streamToPromise = require("stream-to-promise");
 
+export enum ParserType {
+    URL = "URL",
+    STREAM = "STREAM",
+    FILE = "FILE",
+}
+
 export class Parser {
-
-    public static URL = "URL";
-    public static PIPED = "PIPED";
-    public static FILE = "FILE";
-
-    public contents: Buffer;
 
     public static async process(source: ReadableSource, selector: string, processing: string, extraOptions: any = {}) {
         const parser = new Parser(source, extraOptions);
-        const cwd = process.cwd();
-        const extendedConfigPath = path.join(cwd, ".parserconfig.js");
-
-        if (fs.existsSync(extendedConfigPath)) {
-            const requiredConfig = require(extendedConfigPath);
-            parser.extend(requiredConfig);
-        }
-
         const $ = await parser.load();
         const processor = parser.getProcessor(processing);
         const element = $(selector);
         return await Promise.resolve(processor.processor(element, ...processor.args));
     }
+
+    public contents: Buffer;
 
     // TODO set extended type
     public transforms: ParserFunction[];
@@ -42,6 +36,8 @@ export class Parser {
 
     // TODO set extended type
     public config: IParserConfig;
+
+    public type: ParserType;
 
     constructor(public source: ReadableSource, extraOptions: object = {}) {
 
@@ -54,6 +50,8 @@ export class Parser {
         this.transforms = [];
 
         deepExtend(this.extraOptions, extraOptions);
+
+        this.extendFromFileIfExists();
     }
 
     public transform(callback: ParserFunction) {
@@ -76,22 +74,68 @@ export class Parser {
 
         this.contents = data;
 
-        return cheerio.load(data, {
-            xmlMode: this.extraOptions.xmlMode,
-        });
+        const x = () => {
+            const $ = cheerio.load(data, {
+                xmlMode: this.extraOptions.xmlMode,
+            });
+
+            return (selector, ...args) => {
+                let selectorSplitted = selector.split(/\s*\|\s*/);
+                let firstElement = selectorSplitted.shift();
+                let result = $(firstElement, ...args);
+
+                for (let chunk of selectorSplitted) {
+                    if (chunk.startsWith("@")) {
+                        let [fnName, ...fnArgs] = chunk.substring(1).split(/\s*:\s*/);
+                        let config2 = this.config;
+                        let custom = config2.customSelectors;
+
+                        fnArgs = fnArgs.map((arg) => {
+                            if (/^\d+(?:\.\d+)?$/.test(arg)) {
+                                return parseFloat(arg);
+                            }
+
+                            return arg;
+                        });
+
+                        result = custom[fnName](result, ...fnArgs);
+                    } else {
+                        result = result.filter(chunk);
+                    }
+                }
+
+                return result;
+            };
+        };
+
+        return x();
+    }
+
+    public extendFromFileIfExists() {
+        const cwd = process.cwd();
+        const extendedConfigPath = path.join(cwd, ".parserconfig.js");
+
+        if (fs.existsSync(extendedConfigPath)) {
+            const requiredConfig = require(extendedConfigPath);
+            this.extend(requiredConfig);
+        }
+
     }
 
     public read() {
         if (typeof this.source === "string") {
             if (/^\w+:\/\//.test(this.source)) {
+                this.type = ParserType.URL;
                 return request(this.source);
             }
 
             if (fs.existsSync(this.source)) {
+                this.type = ParserType.FILE;
                 return fs.createReadStream(this.source);
             }
 
         } else if (this.source instanceof stream.Readable) {
+            this.type = ParserType.STREAM;
             return this.source;
         }
     }
