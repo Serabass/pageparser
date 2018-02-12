@@ -100,6 +100,24 @@ describe("#load", function() {
         assert.equal($ul2.children().length, 2);
     });
 
+    it("Selector piping with custom function with string argument", async () => {
+        const filePath = path.join(__dirname, "testpage.html");
+        const stream = fs.createReadStream(filePath);
+        const parser = new Parser(stream);
+        assert.notEqual(parser, void 0);
+        assert.equal(typeof parser.load, "function");
+        const $ = await parser.load();
+        assert.equal(typeof $, "function");
+        const $ul = $("ul.has-li | %hasChildrenWithTag : li");
+        assert.equal($ul.length, 1);
+        const $ul2 = $("ul.has-li | %hasChildrenWithTag : a");
+        assert.equal($ul2.length, 0);
+    });
+
+    it("sandbox", async () => {
+
+    });
+
     it("Test plugin", async () => {
         const filePath = path.join(__dirname, "testpage.html");
         const stream = fs.createReadStream(filePath);

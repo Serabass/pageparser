@@ -110,14 +110,7 @@ export class Parser {
 
         (jQuery as any).fn = jQuery.prototype = $.prototype;
         deepExtend(jQuery.prototype, this.config.plugins);
-
-        for (let key in $) {
-            if (!$.hasOwnProperty(key)) {
-                continue;
-            }
-
-            (jQuery as any)[key] = ($ as any)[key];
-        }
+        deepExtend(jQuery, $);
 
         return jQuery;
     }
