@@ -1,9 +1,7 @@
 import * as assert from "assert";
 import * as fs from "fs";
 import * as path from "path";
-import * as iconv from "iconv-lite";
 import {Parser} from "../lib/parser";
-import {ParserType} from "../lib/parser";
 
 describe("#customization", function() {
     this.timeout(10000);
