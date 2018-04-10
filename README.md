@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Serabass/pageparser.svg?branch=master)](https://travis-ci.org/Serabass/pageparser)
 
 Pageparser is a small CLI tool for easy access to HTML/XML elements on local/remote pages
 
